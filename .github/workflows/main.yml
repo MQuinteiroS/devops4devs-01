@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Construcao da Imagem Docker
-        run: echo "Docker Build"
+        run: echo $(ls)
       - name: Publicar a imagem no Docker Hub
         run: echo "Docker Push"
   CD:
