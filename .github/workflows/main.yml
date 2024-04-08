@@ -34,9 +34,17 @@ jobs:
       - name: Set up kubectl
         uses: Azure/setup-kubectl@v4.0.0
 
+      - name: Update kubeconfig
+        shell: bash
+        run: |
+          sed -i "s/{{KUBECTL_CERTIFICATE_AUTH}}/${{secrets.KUBECTL_CERTIFICATE_AUTH}}/g" ./kubeconfig.yaml
+          sed -i "s/{{KUBECTL_SERVER}}/${{secrets.KUBECTL_SERVER}}/g" ./kubeconfig.yaml
+          sed -i "s/{{KUBECTL_CERTIFICATE_DATA}}/${{secrets.KUBECTL_CERTIFICATE_DATA}}/g" ./kubeconfig.yaml
+          sed -i "s/{{KUBECTL_KEYT_DATA}}/${{secrets.KUBECTL_KEYT_DATA}}/g" ./kubeconfig.yaml
+
       - name: Deploy to Kubernetes
         # kubectl apply -f ./k8s/kubernetes.yaml --validate=false
         run: |
-           kubectl --kubeconfig=${{ secrets.KUBECONFIG }} get all
+           kubectl --kubeconfig=./kubeconfig.yaml get all
           
         
