@@ -28,13 +28,13 @@ jobs:
     needs: [CI]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.2
-        name: Checkout do repositorio
-      - name: Conectar com o Kubernetes
-        uses: Azure/k8s-deploy@v4.9
-        with:
-          manifests: |
-            ./k8s/kubernetes.yaml
-          images: |
-            hayiu/devops4devs-news:${{github.run_number}}
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4.1.2
+        
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/kubernetes.yaml
         
