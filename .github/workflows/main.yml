@@ -33,8 +33,6 @@ jobs:
         
       - name: Set up kubectl
         uses: Azure/setup-kubectl@v4.0.0
-        with:
-          version: 1.29.1
 
       - name: Deploy to Kubernetes
         # kubectl apply -f ./k8s/kubernetes.yaml --validate=false
