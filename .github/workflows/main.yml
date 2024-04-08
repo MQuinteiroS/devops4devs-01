@@ -34,11 +34,12 @@ jobs:
       - name: Create kubeconfig
         run: |
           mkdir ${HOME}/.kube
-          echo ${{ secrets.KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
-          cat ${HOME}.kube/config
-        
-      - name: Use context
-        run: kubectl config use-context octobay-api
+          base64 --decode > ${HOME}/.kube/config
+          
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${HOME}/.kube/config
 
       - name: Deploy to Kubernetes
         # kubectl apply -f ./k8s/kubernetes.yaml --validate=false
