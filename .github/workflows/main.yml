@@ -33,6 +33,8 @@ jobs:
         
       - name: Set up kubectl
         uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to Kubernetes
         run: |
