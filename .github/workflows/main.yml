@@ -4,6 +4,9 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+env:
+  KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -37,11 +40,5 @@ jobs:
         uses: actions-hub/kubectl@v1.24.0
         with:
           # Kubernetes configuration
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}              
-
-      - name: Deploy to Kubernetes
-        # kubectl apply -f ./k8s/kubernetes.yaml --validate=false
-        run: |
-           kubectl get all
-          
+          args: get all         
         
